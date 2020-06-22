@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+  tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+</style>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'logout' %}">Logout</a></li>
+<!--              <li class="breadcrumb-item active">Starter Page</li>-->
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Search:</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <form action="/search_re" method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                <div class="row">
+                  <div class="col-lg-5">
+                    <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name">
+                    </div>
+                  </div>
+                  </div>
+                  <div class="col-lg-5">
+                    <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="subjectName" id="subjectName" placeholder="Subject">
+                    </div>
+                  </div>
+                  </div>
+                  <div class="col-lg-2">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </div>
+                </form>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+             <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Teacher Directory</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped display" style="width:100%">
+                  <thead>
+                  <tr>
+                    <th>Subject Name</th>
+                    <th>Email</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone Number</th>
+                    <th>Room Number</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for teacher in all_teachers %}
+                    <tr>
+                      <td>{{teacher.1}}</td>
+                      <td>{{teacher.5}}</td>
+                      <td>{{teacher.6}}</td>
+                      <td>{{teacher.7}}</td>
+                      <td>{{teacher.9}}</td>
+                      <td>{{teacher.10}}</td>
+                      <td><a href="{% url 'profile' teacher.4 %}" class="btn btn-block btn-info">Tech</a></td>
+                      <td><a href="{% url 'delete' teacher.4 %}" class="btn btn-block btn-danger">Delete</a></td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+ <script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+  });
+
+</script>
+
+{% endblock %}

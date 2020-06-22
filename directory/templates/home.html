@@ -8,6 +8,11 @@
         padding: 3px;
         box-sizing: border-box;
     }
+    thead input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
 </style>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -30,46 +35,46 @@
     <!-- /.content-header -->
     <!-- Main content -->
     <div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Search:</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <form action="/search_re" method="post" enctype="multipart/form-data">
-                  {% csrf_token %}
-                <div class="row">
-                  <div class="col-lg-5">
-                    <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name">
-                    </div>
-                  </div>
-                  </div>
-                  <div class="col-lg-5">
-                    <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="subjectName" id="subjectName" placeholder="Subject">
-                    </div>
-                  </div>
-                  </div>
-                  <div class="col-lg-2">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                  </div>
-                </div>
-                </form>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
+<!--      <div class="container-fluid">-->
+<!--        <div class="row">-->
+<!--          <div class="col-lg-12">-->
+<!--            <div class="card">-->
+<!--              <div class="card-header">-->
+<!--                <h3 class="card-title">Search:</h3>-->
+<!--              </div>-->
+<!--              &lt;!&ndash; /.card-header &ndash;&gt;-->
+<!--              <div class="card-body">-->
+<!--                <form action="/bilk_search_re" method="post" enctype="multipart/form-data">-->
+<!--                  {% csrf_token %}-->
+<!--                <div class="row">-->
+<!--                  <div class="col-lg-5">-->
+<!--                    <div class="form-group">-->
+<!--                    <div class="input-group">-->
+<!--                        <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name">-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  </div>-->
+<!--                  <div class="col-lg-5">-->
+<!--                    <div class="form-group">-->
+<!--                    <div class="input-group">-->
+<!--                        <input type="text" class="form-control" name="subjectName" id="subjectName" placeholder="Subject">-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  </div>-->
+<!--                  <div class="col-lg-2">-->
+<!--                    <button type="submit" class="btn btn-primary">Submit</button>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                </form>-->
+<!--              </div>-->
+<!--              &lt;!&ndash; /.card-body &ndash;&gt;-->
+<!--            </div>-->
+<!--            &lt;!&ndash; /.card &ndash;&gt;-->
+<!--          </div>-->
 
-        </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
+<!--        </div>-->
+<!--        &lt;!&ndash; /.row &ndash;&gt;-->
+<!--      </div>&lt;!&ndash; /.container-fluid &ndash;&gt;-->
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
@@ -82,42 +87,47 @@
                 <table id="example1" class="table table-bordered table-striped display" style="width:100%">
                   <thead>
                   <tr>
-                    <th>Subject Name</th>
+                    <th>ID</th>
                     <th>Email</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Phone Number</th>
                     <th>Room Number</th>
+                    <th>Subject Name</th>
                     <th></th>
                     <th></th>
                   </tr>
                   </thead>
                   <tbody>
                   {% for teacher in all_teachers %}
-                    <tr>
-                      <td>{{teacher.1}}</td>
-                      <td>{{teacher.5}}</td>
-                      <td>{{teacher.6}}</td>
-                      <td>{{teacher.7}}</td>
-                      <td>{{teacher.9}}</td>
-                      <td>{{teacher.10}}</td>
-                      <td><a href="{% url 'profile' teacher.4 %}" class="btn btn-block btn-info">Tech</a></td>
-                      <td><a href="{% url 'delete' teacher.4 %}" class="btn btn-block btn-danger">Delete</a></td>
-                    </tr>
+                    {% for subject in teacher.7 %}
+                      <tr>
+                        <td>{{teacher.0}}</td>
+                        <td>{{teacher.1}}</td>
+                        <td>{{teacher.2}}</td>
+                        <td>{{teacher.3}}</td>
+                        <td>{{teacher.5}}</td>
+                        <td>{{teacher.6}}</td>
+                        <td>{{subject}}</td>
+                        <td><a href="{% url 'bulk_profile' teacher.0 %}" class="btn btn-block btn-info">Tech</a></td>
+                        <td><a href="{% url 'bulk_delete' teacher.0 %}" class="btn btn-block btn-danger">Delete</a></td>
+                      </tr>
+                    {% endfor %}
                   {% endfor %}
                   </tbody>
-<!--                  <tfoot>-->
-<!--                      <tr>-->
-<!--                          <th>Subject Name</th>-->
-<!--                          <th>Email</th>-->
-<!--                          <th>First Name</th>-->
-<!--                          <th>Last Name</th>-->
-<!--                          <th>Phone Number</th>-->
-<!--                          <th>Room Number</th>-->
-<!--&lt;!&ndash;                          <th></th>&ndash;&gt;-->
-<!--&lt;!&ndash;                          <th></th>&ndash;&gt;-->
-<!--                      </tr>-->
-<!--                  </tfoot>-->
+                  <tfoot>
+                      <tr>
+                          <th>ID</th>
+                          <th>Email</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Phone Number</th>
+                          <th>Room Number</th>
+                          <th>Subject Name</th>
+                          <th></th>
+                          <th></th>
+                      </tr>
+                  </tfoot>
                 </table>
               </div>
               <!-- /.card-body -->
@@ -133,38 +143,29 @@
   <!-- /.content-wrapper -->
 
  <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-    });
-  });
-<!--  $(document).ready(function() {-->
-<!--    // Setup - add a text input to each footer cell-->
-<!--    $('#example1 tfoot th').each( function () {-->
-<!--        var title = $(this).text();-->
-<!--        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );-->
-<!--    } );-->
 
-<!--    // DataTable-->
-<!--    var table = $('#example1').DataTable({-->
-<!--        initComplete: function () {-->
-<!--            // Apply the search-->
-<!--            this.api().columns().every( function () {-->
-<!--                var that = this;-->
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#example1 thead tr').clone(true).appendTo( '#example1 thead' );
+    $('#example1 thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
 
-<!--                $( 'input', this.footer() ).on( 'keyup change clear', function () {-->
-<!--                    if ( that.search() !== this.value ) {-->
-<!--                        that-->
-<!--                            .search( this.value )-->
-<!--                            .draw();-->
-<!--                    }-->
-<!--                } );-->
-<!--            } );-->
-<!--        }-->
-<!--    });-->
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( '^' + this.value, true, false )
+                    .draw();
+            }
+        } );
+    } );
 
-
+    var table = $('#example1').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true
+    } );
+} );
 </script>
 
 {% endblock %}

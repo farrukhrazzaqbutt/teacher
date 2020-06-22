@@ -786,30 +786,33 @@ input.checkbox:checked:after {
 <body>
 	<!-- main -->
 	<div class="main-w3layouts wrapper">
-		<h1>Creative SignUp Form</h1>
+		<h1>SignUp Form</h1>
 		<div class="main-agileinfo">
 			<div class="agileits-top">
-				<form action="#" method="post">
-					<input class="text" type="text" name="Username" placeholder="Username" required="">
+				<form action="{% url 'registeradmin' %}" method="post">
+					{% csrf_token %}
+					<input class="text" type="text" name="username" placeholder="Username" required="">
 					<input class="text email" type="email" name="email" placeholder="Email" required="">
-					<input class="text" type="password" name="password" placeholder="Password" required="">
-					<input class="text w3lpass" type="password" name="password" placeholder="Confirm Password" required="">
-					<div class="wthree-text">
-						<label class="anim">
-							<input type="checkbox" class="checkbox" required="">
-							<span>I Agree To The Terms & Conditions</span>
-						</label>
-						<div class="clear"> </div>
-					</div>
-					<input type="submit" value="SIGNUP">
+					<input class="text" type="password" id="txtPassword" name="password" placeholder="Password" required="">
+					<input class="text w3lpass" type="password" id="txtConfirmPassword" name="password" placeholder="Confirm Password" required="">
+
+<!--					<div class="wthree-text">-->
+<!--						<label class="anim">-->
+<!--							<input type="checkbox" class="checkbox" required="">-->
+<!--							<span>I Agree To The Terms & Conditions</span>-->
+<!--						</label>-->
+<!--						<div class="clear"> </div>-->
+<!--					</div>-->
+
+					<input type="submit" onclick="return Validate()" value="SIGNUP">
 				</form>
-				<p>Don't have an Account? <a href="#"> Login Now!</a></p>
+				<p>Already have an Account? <a href="{% url 'loginPage' %}"> Login Now!</a></p>
 			</div>
 		</div>
 		<!-- copyright -->
-		<div class="colorlibcopy-agile">
-			<p>© 2018 Colorlib Signup Form. All rights reserved | Design by <a href="https://colorlib.com/" target="_blank">Colorlib</a></p>
-		</div>
+<!--		<div class="colorlibcopy-agile">-->
+<!--			<p>© 2018 Colorlib Signup Form. All rights reserved | Design by <a href="https://colorlib.com/" target="_blank">Colorlib</a></p>-->
+<!--		</div>-->
 		<!-- //copyright -->
 		<ul class="colorlib-bubbles">
 			<li></li>
@@ -826,4 +829,15 @@ input.checkbox:checked:after {
 	</div>
 	<!-- //main -->
 </body>
+<script>
+function Validate() {
+        var password = document.getElementById("txtPassword").value;
+        var confirmPassword = document.getElementById("txtConfirmPassword").value;
+        if (password != confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
+    }
+</script>
 </html>

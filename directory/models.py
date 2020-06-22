@@ -24,3 +24,14 @@ class registerAdmin(models.Model):
     username = models.CharField(max_length=200, unique=True)
     password = models.CharField(max_length=200)
     email = models.CharField(max_length=200)
+
+class bulk_register(models.Model):
+
+    user_ID = models.AutoField(primary_key=True)
+    email = models.EmailField(max_length=70, unique=True)
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
+    profile_pic = models.CharField(max_length=200,default="",blank=True)
+    phone = models.CharField(max_length=200,default="",blank=True)
+    room_number = models.CharField(max_length=200,default="",blank=True)
+    subjects = models.TextField(blank = True)

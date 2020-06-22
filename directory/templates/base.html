@@ -67,21 +67,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{% url 'bulk_upload' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Add Teacher</p>
+                  <p>Bulk Upload</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{% url 'row_wise' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Search Teacher</p>
+                  <p>view Data(by row)</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{% url 'importFile' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Import From File</p>
+                  <p>Import From File(by row)</p>
                 </a>
               </li>
             </ul>
