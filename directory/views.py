@@ -48,7 +48,14 @@ def registerPage(request):
 def login(request):
     username = request.POST.get('username')
     password = request.POST.get('password')
+    # print("123")
     employeeobj = registerAdmin.objects.filter(email=username, password=password)
+    # from passlib.handlers.django import django_pbkdf2_sha256
+    # django_hash = make_password(password)
+    # is_verified = django_pbkdf2_sha256.verify(password, django_hash)
+    #
+    # if is_verified:
+    #     print('Correct!!')
     if (employeeobj):
         request.session['userid'] = employeeobj[0].user_id
         request.session['username'] = employeeobj[0].username
@@ -320,8 +327,8 @@ def registeradmin(request):
     if request.method == "POST":
         adminForm = admin_registerForm(request.POST)
         if adminForm.is_valid():
-            crew_password = request.POST.get('password')
-            form = adminForm.save(commit=False)
-            form.password = make_password(crew_password)
-            form.save()
+            # crew_password = request.POST.get('password')
+            # form = adminForm.save(commit=False)
+            # form.password = make_password(crew_password)
+            adminForm.save()
         return redirect("loginPage")
