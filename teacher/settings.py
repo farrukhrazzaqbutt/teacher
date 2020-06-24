@@ -82,8 +82,8 @@ DATABASES = {
     'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'teacher_directory',
-            'USER': 'dev',
-            'PASSWORD': 'Digitallab!@#',
+            'USER': 'root',
+            'PASSWORD': '',
             'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
             'PORT': '3306',
         }
