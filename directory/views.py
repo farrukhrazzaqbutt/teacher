@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from django.http import JsonResponse, HttpResponse
 from .models import registerAdmin,register,subject_detail,bulk_register
 from .forms import registerForm,admin_registerForm
@@ -48,18 +48,17 @@ def registerPage(request):
 def login(request):
     username = request.POST.get('username')
     password = request.POST.get('password')
-    # print("123")
-    employeeobj = registerAdmin.objects.filter(email=username, password=password)
-    # from passlib.handlers.django import django_pbkdf2_sha256
-    # django_hash = make_password(password)
-    # is_verified = django_pbkdf2_sha256.verify(password, django_hash)
-    #
-    # if is_verified:
-    #     print('Correct!!')
+    employeeobj = registerAdmin.objects.filter(email=username)
     if (employeeobj):
-        request.session['userid'] = employeeobj[0].user_id
-        request.session['username'] = employeeobj[0].username
-        return JsonResponse({'result': request.session['userid'], 'username': request.session['username']})
+        is_verified = check_password(password, employeeobj[0].password)
+        if is_verified:
+            print('Correct!!')
+        # if (employeeobj):
+            request.session['userid'] = employeeobj[0].user_id
+            request.session['username'] = employeeobj[0].username
+            return JsonResponse({'result': request.session['userid'], 'username': request.session['username']})
+        else:
+            return JsonResponse({'result': 'No such entry', })
     else:
         return JsonResponse({'result': 'No such entry', })
 
@@ -327,8 +326,8 @@ def registeradmin(request):
     if request.method == "POST":
         adminForm = admin_registerForm(request.POST)
         if adminForm.is_valid():
-            # crew_password = request.POST.get('password')
-            # form = adminForm.save(commit=False)
-            # form.password = make_password(crew_password)
-            adminForm.save()
+            crew_password = request.POST.get('password')
+            form = adminForm.save(commit=False)
+            form.password = make_password(crew_password)
+            form.save()
         return redirect("loginPage")
